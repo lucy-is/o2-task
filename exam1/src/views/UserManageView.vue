@@ -3,23 +3,38 @@
   <div class="manage-container">
     <h1>사용자관리</h1>
 
-    <div>
-      <input class="search" type="text" placeholder="닉네임" />
-      <button class="search-btn">검색</button>
-    </div>
-
     <ToHomeVue />
+
+    <form class="search-wrap">
+      <input
+        class="search"
+        type="text"
+        placeholder="닉네임"
+        v-model="searchUser"
+      />
+      <button class="search-btn">검색</button>
+    </form>
+    <p>{{ searchUser }}</p>
+
+    <UserInfoVue />
   </div>
 </template>
 
 <!-- TODO: script -->
 <script>
 import ToHomeVue from '@/components/ToHome.vue'
+import UserInfoVue from '@/components/UserInfo.vue'
 
 export default {
   name: 'UserManageView',
   components: {
-    ToHomeVue
+    ToHomeVue,
+    UserInfoVue
+  },
+  data() {
+    return {
+      searchUser: ''
+    }
   }
 }
 </script>
@@ -36,6 +51,10 @@ export default {
 
 h1 {
   margin: 50px 0;
+}
+
+.search-wrap {
+  margin-bottom: 80px;
 }
 
 .search {
