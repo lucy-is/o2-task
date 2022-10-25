@@ -96,6 +96,7 @@ export default {
   position: relative;
   margin: 80px auto;
   width: 900px;
+  height: 100vh;
 }
 
 h1 {

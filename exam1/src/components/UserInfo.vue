@@ -33,7 +33,11 @@
     </table>
   </div>
 
-  <UserDetail :detailItem="detailItem" :toggle="toggle" />
+  <UserDetail
+    v-if="displayDetail"
+    :detailItem="detailItem"
+    @closeDetail="close"
+  />
 </template>
 
 <!-- TODO: script -->
@@ -55,13 +59,13 @@ export default {
       infoTitles: ['#', '성명', '닉네임', '회사명'],
       users: [],
       detailItem: [],
-      toggle: false
+      displayDetail: false
     }
   },
   methods: {
     detail(e) {
       const currentNum = e.currentTarget.dataset.id
-      this.toggle = true
+      this.displayDetail = true
 
       /**
        * @description userItem - 사용자 정보 클릭시 단일 데이터 호출
@@ -77,6 +81,9 @@ export default {
         }
       }
       userItem()
+    },
+    close() {
+      this.displayDetail = false
     }
   },
   setup() {},

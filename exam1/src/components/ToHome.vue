@@ -14,6 +14,5 @@
 
 .home-icon > a {
   color: #999;
-  /* color: red */
 }
 </style>

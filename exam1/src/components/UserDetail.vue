@@ -1,33 +1,35 @@
 <!-- TODO: template -->
 <template>
-  <div class="detail-container" v-if="toggle">
-    <div v-for="detail in detailItem" :key="detail.id">
-      <div>
-        <h4>성명</h4>
+  <div class="detail-container">
+    <div class="detail-wrap" v-for="detail in detailItem" :key="detail?.id">
+      <div class="detail-info-wrap">
+        <h5>성명</h5>
         <p>{{ detail?.name }}</p>
       </div>
-      <div>
-        <h4>회사명</h4>
+      <div class="detail-info-wrap">
+        <h5>회사명</h5>
         <p>{{ detail?.company.name }}</p>
       </div>
-      <div>
-        <h4>주소</h4>
+      <div class="detail-info-wrap">
+        <h5>주소</h5>
         <p>
           {{
             `${detail?.address.city}, ${detail?.address.street}, ${detail?.address.suite} (${detail?.address.zipcode})`
           }}
         </p>
       </div>
-      <div>
-        <h4>이메일</h4>
+      <div class="detail-info-wrap">
+        <h5>이메일</h5>
         <p>{{ detail?.email }}</p>
       </div>
-      <div>
-        <h4>사업부문</h4>
+      <div class="detail-info-wrap">
+        <h5>사업부문</h5>
         <p>{{ detail?.company.bs }}</p>
       </div>
 
-      <button @click="close">닫기</button>
+      <div class="btn-wrap">
+        <button @click="closeDetail">닫기</button>
+      </div>
     </div>
   </div>
 </template>
@@ -36,22 +38,67 @@
 <script>
 /**
  * @props userData (Array) - 유저정보, 검색한 유저정보 / UserInfo.vue
- * @props toggle (Boolean) - 유저정보 상세보기 on off / UserInfo.vue
  */
 export default {
   name: 'UserDetail',
   props: {
-    detailItem: Array,
-    toggle: Boolean
+    detailItem: Array
   },
   methods: {
-    close(e) {
-      e.preventDefault()
-      // this.toggle = false
+    closeDetail() {
+      this.$emit('closeDetail')
     }
   }
 }
 </script>
 
 <!-- TODO: style -->
-<style scoped></style>
+<style scoped>
+.detail-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background-color: transparent;
+  z-index: 9;
+}
+
+.detail-wrap {
+  position: absolute;
+  width: 45%;
+  height: 85%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f2f2f2;
+  padding: 10% 6%;
+  border-radius: 20px;
+}
+
+.detail-wrap .detail-info-wrap {
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #bcbcbc;
+  padding: 10px;
+}
+
+.detail-wrap .detail-info-wrap h5 {
+  margin-bottom: 5px;
+}
+
+.btn-wrap {
+  text-align: end;
+}
+
+.btn-wrap button {
+  background-color: #93cbff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+</style>
