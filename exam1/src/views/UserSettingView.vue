@@ -26,11 +26,9 @@ export default {
 <!-- TODO: style -->
 <style scoped>
 .setting-container {
-  position: absolute;
+  position: relative;
   width: 900px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 80px auto;
 }
 
 h1 {

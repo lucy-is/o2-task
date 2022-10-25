@@ -1,3 +1,4 @@
+<!-- TODO: template -->
 <template>
   <div>
     <h2>사용자정보</h2>
@@ -8,7 +9,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in userData" :key="user.id">
+        <tr
+          v-for="user in userData"
+          :key="user.id"
+          @click="detail"
+          :data-id="user.id"
+        >
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.username }}</td>
@@ -25,11 +31,16 @@
       </tfoot>
     </table>
   </div>
-  <!-- <p>{{ userData }}</p> -->
+  <p>{{ detailItem }}</p>
 </template>
+
+<!-- TODO: script -->
 <script>
 // import axios from 'axios'
 
+/**
+ * @props userData (Array) - 유저정보, 검색한 유저정보
+ */
 export default {
   name: 'UserInfo',
   props: {
@@ -38,13 +49,24 @@ export default {
   data() {
     return {
       infoTitles: ['#', '성명', '닉네임', '회사명'],
-      users: []
+      users: [],
+      detailItem: {}
     }
   },
-  methods: {},
+  methods: {
+    detail(e) {
+      const currentNum = e.currentTarget.dataset.id
+
+      this.userData.forEach((user) => {
+        return currentNum === user.id ? console.log('18') : null
+      })
+    }
+  },
   setup() {}
 }
 </script>
+
+<!-- TODO: style -->
 <style scoped>
 h2 {
   margin-bottom: 20px;

@@ -42,6 +42,9 @@ export default {
   },
   methods: {
     response() {
+      /**
+       * @description 초기 유저 정보 리스트 호출
+       */
       const response = async () => {
         try {
           const item = await axios.get(
@@ -49,7 +52,7 @@ export default {
           )
           this.userData = item.data
         } catch (err) {
-          console.log(err)
+          alert(err.message)
         }
       }
       response()
@@ -64,6 +67,9 @@ export default {
         }, 2000)
         return false
       } else {
+        /**
+         * @description 검색한 유저 정보 호출
+         */
         const searchData = async () => {
           try {
             const item = await axios.get(
@@ -71,7 +77,7 @@ export default {
             )
             this.userData = item.data
           } catch (err) {
-            console.log(err)
+            alert(err.message)
           }
         }
         searchData()
@@ -87,11 +93,9 @@ export default {
 <!-- TODO: style -->
 <style scoped>
 .manage-container {
-  position: absolute;
+  position: relative;
+  margin: 80px auto;
   width: 900px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 h1 {
