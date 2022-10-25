@@ -10,20 +10,21 @@
       </thead>
       <tbody>
         <tr
+          class="user-info-click"
           v-for="user in userData"
           :key="user.id"
-          @click="detail"
           :data-id="user.id"
+          @click="detail"
         >
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.company.name }}</td>
+          <td>{{ user?.id }}</td>
+          <td>{{ user?.name }}</td>
+          <td>{{ user?.username }}</td>
+          <td>{{ user?.company.name }}</td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="4" v-if="userData.length > 1">pagination</td>
+          <td colspan="4" v-if="userData.length >= 1">pagination</td>
           <td colspan="4" v-else-if="userData.length === 0">
             조회할 데이터가 없습니다.
           </td>
@@ -31,15 +32,18 @@
       </tfoot>
     </table>
   </div>
-  <p>{{ detailItem }}</p>
+
+  <UserDetail :detailItem="detailItem" :toggle="toggle" />
 </template>
 
 <!-- TODO: script -->
 <script>
-// import axios from 'axios'
+import axios from 'axios'
+
+import UserDetail from '@/components/UserDetail.vue'
 
 /**
- * @props userData (Array) - 유저정보, 검색한 유저정보
+ * @props userData (Array) - 유저정보, 검색한 유저정보 / UserManageView.vue
  */
 export default {
   name: 'UserInfo',
@@ -50,19 +54,35 @@ export default {
     return {
       infoTitles: ['#', '성명', '닉네임', '회사명'],
       users: [],
-      detailItem: {}
+      detailItem: [],
+      toggle: false
     }
   },
   methods: {
     detail(e) {
       const currentNum = e.currentTarget.dataset.id
+      this.toggle = true
 
-      this.userData.forEach((user) => {
-        return currentNum === user.id ? console.log('18') : null
-      })
+      /**
+       * @description userItem - 사용자 정보 클릭시 단일 데이터 호출
+       */
+      const userItem = async () => {
+        try {
+          const { data } = await axios.get(
+            `https://jsonplaceholder.typicode.com/users?id=${currentNum}`
+          )
+          this.detailItem = data
+        } catch (err) {
+          alert(err.message)
+        }
+      }
+      userItem()
     }
   },
-  setup() {}
+  setup() {},
+  components: {
+    UserDetail
+  }
 }
 </script>
 
@@ -76,6 +96,14 @@ table {
   width: 100%;
   text-align: center;
   border-collapse: collapse;
+}
+
+.user-info-click {
+  cursor: pointer;
+}
+
+.user-info-click:hover {
+  background-color: #eee;
 }
 
 th {

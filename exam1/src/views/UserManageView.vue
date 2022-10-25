@@ -47,10 +47,10 @@ export default {
        */
       const response = async () => {
         try {
-          const item = await axios.get(
+          const { data } = await axios.get(
             'https://jsonplaceholder.typicode.com/users'
           )
-          this.userData = item.data
+          this.userData = data
         } catch (err) {
           alert(err.message)
         }
@@ -72,10 +72,10 @@ export default {
          */
         const searchData = async () => {
           try {
-            const item = await axios.get(
+            const { data } = await axios.get(
               `https://jsonplaceholder.typicode.com/users?username=${this.searchUser}`
             )
-            this.userData = item.data
+            this.userData = data
           } catch (err) {
             alert(err.message)
           }
