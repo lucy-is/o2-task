@@ -13,7 +13,7 @@
   width: 100%;
   height: 100vh;
   top: 0;
-  background: rgba(190, 190, 190, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 9;
 }
 

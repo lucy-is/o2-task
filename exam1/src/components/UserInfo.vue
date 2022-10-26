@@ -24,7 +24,9 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="4" v-if="userData.length >= 1">pagination</td>
+          <td colspan="4" v-if="userData.length >= 1">
+            <Pagination :userData="userData" />
+          </td>
           <td colspan="4" v-else-if="userData.length === 0">
             조회할 데이터가 없습니다.
           </td>
@@ -38,8 +40,6 @@
     :detailItem="detailItem"
     @closeDetail="close"
   />
-
-  <!-- <Spinner v-if="isLoading" /> -->
 </template>
 
 <!-- TODO: script -->
@@ -47,7 +47,7 @@
 import axios from 'axios'
 
 import UserDetail from '@/components/UserDetail.vue'
-// import Spinner from './Spinner.vue'
+import Pagination from './Pagination.vue'
 
 /**
  * @props userData (Array) - 유저정보, 검색한 유저정보 / UserManageView.vue
@@ -96,7 +96,8 @@ export default {
   },
   setup() {},
   components: {
-    UserDetail
+    UserDetail,
+    Pagination
   },
   emits: ['loadingCtl']
 }
