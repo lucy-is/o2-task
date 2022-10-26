@@ -38,6 +38,8 @@
     :detailItem="detailItem"
     @closeDetail="close"
   />
+
+  <!-- <Spinner v-if="isLoading" /> -->
 </template>
 
 <!-- TODO: script -->
@@ -45,6 +47,7 @@
 import axios from 'axios'
 
 import UserDetail from '@/components/UserDetail.vue'
+// import Spinner from './Spinner.vue'
 
 /**
  * @props userData (Array) - 유저정보, 검색한 유저정보 / UserManageView.vue
@@ -59,7 +62,8 @@ export default {
       infoTitles: ['#', '성명', '닉네임', '회사명'],
       users: [],
       detailItem: [],
-      displayDetail: false
+      displayDetail: false,
+      isLoading: false
     }
   },
   methods: {
@@ -72,12 +76,16 @@ export default {
        */
       const userItem = async () => {
         try {
+          this.$emit('loadingCtl', true)
+
           const { data } = await axios.get(
             `https://jsonplaceholder.typicode.com/users?id=${currentNum}`
           )
           this.detailItem = data
         } catch (err) {
           alert(err.message)
+        } finally {
+          this.$emit('loadingCtl', false)
         }
       }
       userItem()
@@ -89,7 +97,8 @@ export default {
   setup() {},
   components: {
     UserDetail
-  }
+  },
+  emits: ['loadingCtl']
 }
 </script>
 

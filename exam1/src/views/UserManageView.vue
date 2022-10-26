@@ -3,7 +3,7 @@
   <div class="manage-container">
     <h1>사용자관리</h1>
 
-    <ToHomeVue />
+    <ToHome />
 
     <form class="search-wrap" @submit="search">
       <input
@@ -16,32 +16,33 @@
       <p class="errorMsg">{{ errorMsg }}</p>
     </form>
 
-    <UserInfoVue :userData="userData" />
+    <UserInfo :userData="userData" @loadingCtl="loadingCtl" />
   </div>
 
-  <Spinner />
+  <Spinner v-if="isLoading" />
 </template>
 
 <!-- TODO: script -->
 <script>
 import axios from 'axios'
 
-import ToHomeVue from '@/components/ToHome.vue'
-import UserInfoVue from '@/components/UserInfo.vue'
+import ToHome from '@/components/ToHome.vue'
+import UserInfo from '@/components/UserInfo.vue'
 import Spinner from '@/components/Spinner.vue'
 
 export default {
   name: 'UserManageView',
   components: {
-    ToHomeVue,
-    UserInfoVue,
+    ToHome,
+    UserInfo,
     Spinner
   },
   data() {
     return {
       searchUser: '',
       errorMsg: '',
-      userData: []
+      userData: [],
+      isLoading: false
     }
   },
   methods: {
@@ -51,12 +52,16 @@ export default {
        */
       const response = async () => {
         try {
+          this.isLoading = true
+
           const { data } = await axios.get(
             'https://jsonplaceholder.typicode.com/users'
           )
           this.userData = data
         } catch (err) {
           alert(err.message)
+        } finally {
+          this.isLoading = false
         }
       }
       response()
@@ -76,16 +81,23 @@ export default {
          */
         const searchData = async () => {
           try {
+            this.isLoading = true
+
             const { data } = await axios.get(
               `https://jsonplaceholder.typicode.com/users?username=${this.searchUser}`
             )
             this.userData = data
           } catch (err) {
             alert(err.message)
+          } finally {
+            this.isLoading = false
           }
         }
         searchData()
       }
+    },
+    loadingCtl(value) {
+      this.isLoading = value
     }
   },
   mounted() {
