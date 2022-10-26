@@ -18,6 +18,8 @@
 
     <UserInfoVue :userData="userData" />
   </div>
+
+  <Spinner />
 </template>
 
 <!-- TODO: script -->
@@ -26,12 +28,14 @@ import axios from 'axios'
 
 import ToHomeVue from '@/components/ToHome.vue'
 import UserInfoVue from '@/components/UserInfo.vue'
+import Spinner from '@/components/Spinner.vue'
 
 export default {
   name: 'UserManageView',
   components: {
     ToHomeVue,
-    UserInfoVue
+    UserInfoVue,
+    Spinner
   },
   data() {
     return {
