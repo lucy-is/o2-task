@@ -13,14 +13,14 @@
 
 <!-- TODO: script -->
 <script>
-import ToHomeVue from '@/components/ToHome.vue'
+import ToHomeVue from '@/components/ToHome.vue';
 
 export default {
   name: 'UserSettingView',
   components: {
     ToHomeVue
   }
-}
+};
 </script>
 
 <!-- TODO: style -->

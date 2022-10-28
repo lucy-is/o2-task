@@ -19,23 +19,24 @@
     <UserInfo :userData="userData" @loadingCtl="loadingCtl" />
   </div>
 
-  <Spinner v-if="isLoading" />
+  <LoadingSpinner v-if="isLoading" />
 </template>
 
 <!-- TODO: script -->
 <script>
-import axios from 'axios'
+import axios from '../config/axios.js';
 
-import ToHome from '@/components/ToHome.vue'
-import UserInfo from '@/components/UserInfo.vue'
-import Spinner from '@/components/Spinner.vue'
+/** Component */
+import ToHome from '@/components/ToHome.vue';
+import UserInfo from '@/components/UserInfo.vue';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 export default {
   name: 'UserManageView',
   components: {
     ToHome,
     UserInfo,
-    Spinner
+    LoadingSpinner
   },
   data() {
     return {
@@ -43,7 +44,7 @@ export default {
       errorMsg: '',
       userData: [],
       isLoading: false
-    }
+    };
   },
   methods: {
     response() {
@@ -52,58 +53,56 @@ export default {
        */
       const response = async () => {
         try {
-          this.isLoading = true
+          this.isLoading = true;
 
-          const { data } = await axios.get(
-            'https://jsonplaceholder.typicode.com/users'
-          )
-          this.userData = data
+          const { data } = await axios.get('/users');
+          this.userData = data;
         } catch (err) {
-          alert(err.message)
+          alert(err.message);
         } finally {
-          this.isLoading = false
+          this.isLoading = false;
         }
-      }
-      response()
+      };
+      response();
     },
     search(e) {
-      e.preventDefault()
+      e.preventDefault();
 
       if (this.searchUser === '') {
-        this.errorMsg = '성명을 입력해주세요.'
+        this.errorMsg = '성명을 입력해주세요.';
         setTimeout(() => {
-          this.errorMsg = ''
-        }, 2000)
-        return false
+          this.errorMsg = '';
+        }, 2000);
+        return false;
       } else {
         /**
          * @description 검색한 유저 정보 호출
          */
         const searchData = async () => {
           try {
-            this.isLoading = true
+            this.isLoading = true;
 
             const { data } = await axios.get(
-              `https://jsonplaceholder.typicode.com/users?username=${this.searchUser}`
-            )
-            this.userData = data
+              `/users?username=${this.searchUser}`
+            );
+            this.userData = data;
           } catch (err) {
-            alert(err.message)
+            alert(err.message);
           } finally {
-            this.isLoading = false
+            this.isLoading = false;
           }
-        }
-        searchData()
+        };
+        searchData();
       }
     },
     loadingCtl(value) {
-      this.isLoading = value
+      this.isLoading = value;
     }
   },
   mounted() {
-    this.response()
+    this.response();
   }
-}
+};
 </script>
 
 <!-- TODO: style -->

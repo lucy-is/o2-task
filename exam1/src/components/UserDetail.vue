@@ -55,21 +55,21 @@ export default {
   data() {
     return {
       closeConfirm: false
-    }
+    };
   },
   methods: {
     closeBtn() {
-      this.closeConfirm = true
+      this.closeConfirm = true;
     },
     closeDetail() {
-      this.$emit('closeDetail')
+      this.$emit('closeDetail');
     },
     cancelBtn() {
-      this.closeConfirm = false
+      this.closeConfirm = false;
     }
   },
   components: {}
-}
+};
 </script>
 
 <!-- TODO: style -->

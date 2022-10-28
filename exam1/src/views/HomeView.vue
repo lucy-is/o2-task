@@ -13,7 +13,7 @@
 <script>
 export default {
   name: 'HomeView'
-}
+};
 </script>
 
 <!-- TODO: style -->
